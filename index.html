@@ -1,0 +1,153 @@
+<html>
+<nav id="menu">
+    <ul id="menu-nav">
+        <li class="current"><a href="#Home">Home</a></li>
+        <li><a href="#Cakes">Cakes</a></li>
+        <li><a href="#Candy">Candy</a></li>
+        <li><a href="#Marshmellow">Marshmellow</a></li>
+        <li><a href="#Honey">Honey</a></li>
+    </ul>
+</nav>
+<div id="Home" class="page">
+    <div class="container">
+        This is Home
+    </div>
+</div>
+<div id="Cakes" class="page">
+    <div class="container">
+        This is Cakes
+    </div>
+</div>
+<div id="Candy" class="page">
+    <div class="container">
+        This is Candy
+    </div>
+</div>
+<div id="Marshmellow" class="page">
+    <div class="container">
+        This is Marshmellow
+    </div>
+</div>
+<div id="Honey" class="page">
+    <div class="container">
+        This is Honey
+    </div>
+</div>
+
+</html>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        height: 1500px;
+        overflow-y: hidden;
+    }
+
+    html,
+    body {
+        scroll-behavior: smooth;
+    }
+
+    #menu-nav {
+        width: 100%;
+        height: 30px;
+        background-color: rgba(0, 0, 0, 0.8);
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+        position: fixed;
+        z-index: 1000;
+    }
+
+    #menu-nav li {
+        display: inline-block;
+    }
+
+    #menu-nav a {
+        line-height: 30px;
+        display: inline-block;
+        text-decoration: none;
+        color: #AAA;
+        padding: 0 10px;
+        text-align: center;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+    }
+
+    #menu-nav a:hover,
+    #menu-nav .current {
+        background-color: black;
+        color: #EEE;
+    }
+
+    .page {
+        width: 100%;
+        height: 100vh;
+        color: white;
+        text-align: center;
+        font-size: 72px;
+        line-height: 100vh;
+        text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+    }
+
+    #Home {
+        background-color: skyblue
+    }
+
+    #Cakes {
+        background-color: green
+    }
+
+    #Candy {
+        background-color: orange
+    }
+
+    #Marshmellow {
+        background-color: tomato
+    }
+
+    #Honey {
+        background-color: silver
+    }
+</style>
+
+<script>
+    //initialize
+    var winHeight = window.innerHeight,
+        pages = document.getElementsByClassName('page'),
+        navLinks = document.querySelectorAll('#menu-nav a'),
+        currentPage = 0;
+
+    window.addEventListener('mousewheel', function (e) {
+        scrollPages(e.wheelDelta);
+    });
+    window.addEventListener('DOMMouseScroll', function (e) {
+        scrollPages(-1 * e.detail);
+    });
+
+    function scrollPages(delta) {
+        var direction = (delta > 0) ? 'up' : 'down',
+            currentPageOffset = currentPage * winHeight;
+
+        if (direction == 'down' && currentPage <= pages.length - 2) {
+            window.scrollTo(0, currentPageOffset + winHeight);
+            currentPage++;
+        } else if (direction == 'up' && currentPage > 0) {
+            window.scrollTo(0, currentPageOffset - winHeight);
+            currentPage--;
+        }
+    }
+
+    for (var i = 0; i < navLinks.length; i++) {
+        navLinks[i].addEventListener('click', updateNav(i));
+    }
+
+    function updateNav(i) {
+        return function () {
+            for (var j = 0; j < navLinks.length; j++) {
+                navLinks[j].parentNode.classList.remove('current');
+            }
+            navLinks[i].parentNode.classList.add('current');
+            currentPage = i;
+        }
+    }
+</script>
